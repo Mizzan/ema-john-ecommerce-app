@@ -1,0 +1,26 @@
+.header {
+  text-align: center;
+}
+
+.header img {
+  height: 80px;
+}
+
+.header nav {
+  background-color: rgb(69, 69, 241);
+  line-height: 40px;
+  font-size: 22px;
+  margin-top: 20px;
+}
+
+.header a {
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+  margin: 0 10px 0;
+  padding: 10px;
+}
+
+.header a:hover {
+  background-color: rgb(253, 31, 31);
+}

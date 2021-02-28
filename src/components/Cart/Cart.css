@@ -1,0 +1,10 @@
+.cart {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cart-header {
+  text-align: right;
+}

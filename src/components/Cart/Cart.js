@@ -4,7 +4,8 @@ import "./Cart.css";
 const Cart = (props) => {
   const cart = props.cart;
   const totalPrice = cart.reduce(
-    (acc, product) => (Number(acc) + Number(product.price)).toFixed(2),
+    (acc, product) =>
+      (Number(acc) + Number(product.price) * product.quantity).toFixed(2),
     0
   );
   /**

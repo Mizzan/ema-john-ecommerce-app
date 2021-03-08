@@ -4,6 +4,7 @@ import {
   getDatabaseCart,
   removeFromDatabaseCart,
 } from "../../utilities/databaseManager";
+import Cart from "../Cart/Cart";
 import ReviewItem from "../ReviewItem/ReviewItem";
 import "./Review.css";
 const Review = () => {
@@ -27,15 +28,20 @@ const Review = () => {
     setCart(cartProducts);
   }, []);
   return (
-    <div>
-      <h1>Cart Items: {cart.length}</h1>
-      {cart.map((pd) => (
-        <ReviewItem
-          handleRemoveProduct={handleRemoveProduct}
-          key={pd.key}
-          product={pd}
-        ></ReviewItem>
-      ))}
+    <div className="shop-container">
+      <div className="product-container">
+        {cart.map((pd) => (
+          <ReviewItem
+            handleRemoveProduct={handleRemoveProduct}
+            key={pd.key}
+            product={pd}
+          ></ReviewItem>
+        ))}
+      </div>
+
+      <div className="cart-container">
+        <Cart cart={cart}></Cart>
+      </div>
     </div>
   );
 };

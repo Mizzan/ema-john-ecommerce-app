@@ -20,6 +20,7 @@ export const handleGoogleSignIn = () => {
         name: displayName,
         email: email,
         photo: photoURL,
+        success: true,
       };
       return singedInUser;
     })
@@ -50,9 +51,8 @@ export const handleFbSignIn = () => {
 
       // This gives you a Facebook Access Token. You can use it to access the Facebook API.
       var accessToken = credential.accessToken;
-
+      user.success = true;
       return user;
-      // ...
     })
     .catch((error) => {
       // Handle Errors here.
@@ -77,66 +77,65 @@ export const handleSignOut = () => {
         name: "",
         photo: "",
         email: "",
+        error: "",
+        success: false,
       };
       return signOutUser;
     })
     .catch((error) => console.log(error));
 };
 
-// export const createUserWithEmailAndPassword = () => {
-//   firebase
-//     .auth()
-//     .createUserWithEmailAndPassword(user.email, user.password)
-//     .then((res) => {
-//       const newUserInfo = { ...user };
-//       newUserInfo.error = "";
-//       newUserInfo.success = true;
-//       setUser(newUserInfo);
-//       updateUserName(user.name);
-//     })
-//     .catch((error) => {
-//       const newUserInfo = { ...user };
-//       newUserInfo.error = error.message;
-//       newUserInfo.success = false;
-//       setUser(newUserInfo);
-//     });
-// };
+export const createUserWithEmailAndPassword = (name, email, password) => {
+  return firebase
+    .auth()
+    .createUserWithEmailAndPassword(email, password)
+    .then((res) => {
+      const newUserInfo = res.user;
+      newUserInfo.error = "";
+      newUserInfo.success = true;
+      updateUserName(name);
+      return newUserInfo;
+    })
+    .catch((error) => {
+      const newUserInfo = {};
+      newUserInfo.error = error.message;
+      newUserInfo.success = false;
+      return newUserInfo;
+    });
+};
 
-// export const signInWithEmailAndPassword = () => {
-//   firebase
-//     .auth()
-//     .signInWithEmailAndPassword(user.email, user.password)
-//     .then((res) => {
-//       const newUserInfo = { ...user };
-//       newUserInfo.error = "";
-//       newUserInfo.success = true;
-//       setUser(newUserInfo);
-//       setLoggedInUser(newUserInfo);
-//       history.replace(from);
-//       console.log("Sign in user info", res.user);
-//     })
-//     .catch((error) => {
-//       const newUserInfo = { ...user };
-//       newUserInfo.error = error.message;
-//       newUserInfo.success = false;
-//       setUser(newUserInfo);
-//     });
-// };
+export const signInWithEmailAndPassword = (email, password) => {
+  return firebase
+    .auth()
+    .signInWithEmailAndPassword(email, password)
+    .then((res) => {
+      const newUserInfo = res.user;
+      newUserInfo.error = "";
+      newUserInfo.success = true;
+      return newUserInfo;
+    })
+    .catch((error) => {
+      const newUserInfo = {};
+      newUserInfo.error = error.message;
+      newUserInfo.success = false;
+      return newUserInfo;
+    });
+};
 
-// const updateUserName = (name) => {
-//   const user = firebase.auth().currentUser;
+const updateUserName = (name) => {
+  const user = firebase.auth().currentUser;
 
-//   user
-//     .updateProfile({
-//       displayName: name,
-//       photoURL: "https://example.com/jane-q-user/profile.jpg",
-//     })
-//     .then(function () {
-//       // Update successful.
-//       console.log("Update successful");
-//     })
-//     .catch(function (error) {
-//       // An error happened.
-//       console.log("An error happened", error);
-//     });
-// };
+  user
+    .updateProfile({
+      displayName: name,
+      photoURL: "https://example.com/jane-q-user/profile.jpg",
+    })
+    .then(function () {
+      // Update successful.
+      console.log("Update successful");
+    })
+    .catch(function (error) {
+      // An error happened.
+      console.log("An error happened", error);
+    });
+};
